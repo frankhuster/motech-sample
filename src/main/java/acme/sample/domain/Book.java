@@ -1,4 +1,4 @@
-package archetype.test.domain;
+package acme.sample.domain;
 
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;

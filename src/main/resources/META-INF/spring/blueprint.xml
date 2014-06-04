@@ -9,12 +9,12 @@
 
     <import resource="classpath*:META-INF/motech/*.xml" />
 
-    <osgi:service ref="helloWorldService" interface="archetype.test.service.HelloWorldService" />
+    <osgi:service ref="helloWorldService" interface="acme.sample.service.HelloWorldService" />
 
-    <osgi:service ref="authorService" interface="archetype.test.service.AuthorService" />
+    <osgi:service ref="authorService" interface="acme.sample.service.AuthorService" />
 
-    <osgi:reference id="authorDataService" interface="archetype.test.repository.AuthorDataService" />
+    <osgi:reference id="authorDataService" interface="acme.sample.repository.AuthorDataService" />
 
-    <osgi:reference id="bookDataService" interface="archetype.test.repository.BookDataService" />
+    <osgi:reference id="bookDataService" interface="acme.sample.repository.BookDataService" />
 
 </beans>

@@ -1,6 +1,6 @@
-package archetype.test.repository;
+package acme.sample.repository;
 
-import archetype.test.domain.Book;
+import acme.sample.domain.Book;
 import org.motechproject.mds.annotations.Lookup;
 import org.motechproject.mds.annotations.LookupField;
 import org.motechproject.mds.service.MotechDataService;

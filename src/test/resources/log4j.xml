@@ -10,7 +10,7 @@
         </layout>
     </appender>
 
-    <logger name="archetype.test">
+    <logger name="acme.sample">
         <level value="ALL"/>
     </logger>
     <root>

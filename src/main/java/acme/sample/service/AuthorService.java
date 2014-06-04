@@ -1,8 +1,8 @@
-package archetype.test.service;
+package acme.sample.service;
 
 import java.util.List;
 
-import archetype.test.domain.Author;
+import acme.sample.domain.Author;
 
 /**
  * Service interface for CRUD on simple repository authors.

@@ -1,4 +1,4 @@
-package archetype.test.service;
+package acme.sample.service;
 
 /**
  * Simple example of a service interface.

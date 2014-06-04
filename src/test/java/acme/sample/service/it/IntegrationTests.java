@@ -1,4 +1,4 @@
-package archetype.test.service.it;
+package acme.sample.service.it;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

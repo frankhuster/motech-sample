@@ -1,8 +1,8 @@
-package archetype.test.service.impl;
+package acme.sample.service.impl;
 
-import archetype.test.domain.Author;
-import archetype.test.repository.AuthorDataService;
-import archetype.test.service.AuthorService;
+import acme.sample.domain.Author;
+import acme.sample.repository.AuthorDataService;
+import acme.sample.service.AuthorService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Implementation of the {@link archetype.test.service.AuthorService} interface. Uses
- * {@link archetype.test.repository.AuthorDataService} in order to retrieve and persist authors.
+ * Implementation of the {@link acme.sample.service.AuthorService} interface. Uses
+ * {@link acme.sample.repository.AuthorDataService} in order to retrieve and persist authors.
  */
 @Service("authorService")
 public class AuthorServiceImpl implements AuthorService {

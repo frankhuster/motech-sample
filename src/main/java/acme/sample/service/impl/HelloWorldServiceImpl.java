@@ -1,6 +1,6 @@
-package archetype.test.service.impl;
+package acme.sample.service.impl;
 
-import archetype.test.service.HelloWorldService;
+import acme.sample.service.HelloWorldService;
 import org.springframework.stereotype.Service;
 
 /**

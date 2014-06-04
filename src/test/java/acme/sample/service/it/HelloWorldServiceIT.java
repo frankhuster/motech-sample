@@ -1,6 +1,6 @@
-package archetype.test.service.it;
+package acme.sample.service.it;
 
-import archetype.test.service.HelloWorldService;
+import acme.sample.service.HelloWorldService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ops4j.pax.exam.junit.PaxExam;

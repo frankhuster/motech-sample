@@ -1,14 +1,14 @@
-package archetype.test.service.it;
+package acme.sample.service.it;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import archetype.test.domain.Author;
-import archetype.test.domain.Book;
-import archetype.test.repository.AuthorDataService;
-import archetype.test.repository.BookDataService;
-import archetype.test.service.AuthorService;
+import acme.sample.domain.Author;
+import acme.sample.domain.Book;
+import acme.sample.repository.AuthorDataService;
+import acme.sample.repository.BookDataService;
+import acme.sample.service.AuthorService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

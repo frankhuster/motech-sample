@@ -1,8 +1,8 @@
-package acme.sample.service;
+package org.motechproject.sample.service;
 
 import java.util.List;
 
-import acme.sample.domain.Author;
+import org.motechproject.sample.domain.Author;
 
 /**
  * Service interface for CRUD on simple repository authors.

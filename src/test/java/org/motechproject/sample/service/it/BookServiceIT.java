@@ -1,14 +1,14 @@
-package acme.sample.service.it;
+package org.motechproject.sample.service.it;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import acme.sample.domain.Author;
-import acme.sample.domain.Book;
-import acme.sample.repository.AuthorDataService;
-import acme.sample.repository.BookDataService;
-import acme.sample.service.AuthorService;
+import org.motechproject.sample.domain.Author;
+import org.motechproject.sample.domain.Book;
+import org.motechproject.sample.repository.AuthorDataService;
+import org.motechproject.sample.repository.BookDataService;
+import org.motechproject.sample.service.AuthorService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,6 +1,6 @@
-package acme.sample.service.it;
+package org.motechproject.sample.service.it;
 
-import acme.sample.service.HelloWorldService;
+import org.motechproject.sample.service.HelloWorldService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ops4j.pax.exam.junit.PaxExam;

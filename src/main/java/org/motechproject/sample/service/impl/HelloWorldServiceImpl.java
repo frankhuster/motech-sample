@@ -1,6 +1,6 @@
-package acme.sample.service.impl;
+package org.motechproject.sample.service.impl;
 
-import acme.sample.service.HelloWorldService;
+import org.motechproject.sample.service.HelloWorldService;
 import org.springframework.stereotype.Service;
 
 /**

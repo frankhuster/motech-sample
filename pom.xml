@@ -146,9 +146,9 @@
                         <Resource-Path>resources</Resource-Path>
                         <Context-File>META-INF/motech/applicationContext.xml</Context-File>
                         <Export-Package>
-                            acme.sample.service;version=${project.version},
-                            acme.sample.repository;version=${project.version},
-                            acme.sample.domain;version=${project.version},
+                            org.motechproject.sample.service;version=${project.version},
+                            org.motechproject.sample.repository;version=${project.version},
+                            org.motechproject.sample.domain;version=${project.version},
                         </Export-Package>
                         <Import-Package>*</Import-Package>
                     </instructions>

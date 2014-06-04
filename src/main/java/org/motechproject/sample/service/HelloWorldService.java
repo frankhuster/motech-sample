@@ -1,4 +1,4 @@
-package acme.sample.service;
+package org.motechproject.sample.service;
 
 /**
  * Simple example of a service interface.

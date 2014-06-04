@@ -11,8 +11,10 @@
 
     <osgi:service ref="helloWorldService" interface="archetype.test.service.HelloWorldService" />
 
-    <osgi:service ref="helloWorldAuthorService" interface="archetype.test.service.AuthorService" />
+    <osgi:service ref="authorService" interface="archetype.test.service.AuthorService" />
 
     <osgi:reference id="authorDataService" interface="archetype.test.repository.AuthorDataService" />
+
+    <osgi:reference id="bookDataService" interface="archetype.test.repository.BookDataService" />
 
 </beans>

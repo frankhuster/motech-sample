@@ -19,9 +19,6 @@ public class Author {
     @Field
     private String bio;
 
-    @Field
-    private List<Book> books;
-
     public Author() {
     }
 
@@ -46,12 +43,12 @@ public class Author {
         this.bio = bio;
     }
 
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
+    @Override
+    public String toString() {
+        return "Author{" +
+                "name='" + name + '\'' +
+                ", bio='" + bio + '\'' +
+                '}';
     }
 
     @Override

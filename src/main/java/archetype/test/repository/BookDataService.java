@@ -7,5 +7,5 @@ import org.motechproject.mds.service.MotechDataService;
 
 public interface BookDataService extends MotechDataService<Book> {
     @Lookup
-    Book findBookByTitle(@LookupField(name = "title") String bookTitle);
+    Book findByTitle(@LookupField(name = "title") String bookTitle);
 }

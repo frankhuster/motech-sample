@@ -7,5 +7,5 @@ import org.motechproject.mds.service.MotechDataService;
 
 public interface AuthorDataService extends MotechDataService<Author> {
     @Lookup
-    Author findAuthorByName(@LookupField(name = "name") String authorName);
+    Author findByName(@LookupField(name = "name") String authorName);
 }

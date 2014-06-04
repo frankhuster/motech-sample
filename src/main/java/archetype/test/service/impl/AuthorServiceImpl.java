@@ -13,7 +13,7 @@ import java.util.List;
  * Implementation of the {@link archetype.test.service.AuthorService} interface. Uses
  * {@link archetype.test.repository.AuthorDataService} in order to retrieve and persist authors.
  */
-@Service("helloWorldAuthorService")
+@Service("authorService")
 public class AuthorServiceImpl implements AuthorService {
 
     @Autowired
@@ -33,7 +33,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Author findAuthorByName(String authorName) {
-        Author author = authorDataService.findAuthorByName(authorName);
+        Author author = authorDataService.findByName(authorName);
         if (null == author) {
             return null;
         }

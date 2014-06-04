@@ -33,37 +33,22 @@ import static org.junit.Assert.assertTrue;
 @RunWith(PaxExam.class)
 @ExamReactorStrategy(PerSuite.class)
 @ExamFactory(MotechNativeTestContainerFactory.class)
-public class AuthorServiceIT extends BasePaxIT {
+public class BookServiceIT extends BasePaxIT {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Inject
-    private AuthorService authorService;
-    @Inject
-    private AuthorDataService authorDataService;
+    private BookDataService bookDataService;
 
     @Test
-    public void testAuthorService() throws Exception {
+    public void testBookService() throws Exception {
 
-        logger.info("testAuthorService");
+        logger.info("testBookService");
 
-        authorDataService.deleteAll();
+        bookDataService.deleteAll();
 
-        Author ernest = authorDataService.create(new Author("Ernest", "This is Ernest's biography."));
-
-        logger.info("Created author id {}", authorDataService.getDetachedField(ernest, "id"));
-
-        Author author = authorService.findAuthorByName(ernest.getName());
-        logger.info("Found author id {} : {}", authorDataService.getDetachedField(author, "id"), author.toString());
-
-        assertEquals(ernest, author);
-
-
-        List<Author> authors = authorService.getAuthors();
-        assertTrue(authors.contains(ernest));
-
-        authorService.delete(ernest);
-        author = authorService.findAuthorByName(ernest.getName());
-        assertNull(author);
+        Book testBook1 = bookDataService.create(new Book("Book, the one", "book description"));
+        Book testBook2 = bookDataService.create(new Book("Book two, the return", "book description"));
+        List<Book> books = new ArrayList<>(Arrays.asList(testBook1, testBook2));
     }
 }

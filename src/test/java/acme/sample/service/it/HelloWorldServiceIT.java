@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**

@@ -3,10 +3,10 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.motechproject</groupId>
-    <artifactId>motech-test-module</artifactId>
+    <artifactId>motech-sample</artifactId>
     <version>0.1-SNAPSHOT</version>
     <packaging>bundle</packaging>
-    <name>Archetype Test Module</name>
+    <name>Sample Module</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -143,7 +143,7 @@
                 <configuration>
                     <instructions>
                         <Blueprint-Enabled>true</Blueprint-Enabled>
-                        <Resource-Path>motech-test-module/resources</Resource-Path>
+                        <Resource-Path>resources</Resource-Path>
                         <Context-File>META-INF/motech/applicationContext.xml</Context-File>
                         <Export-Package>
                             acme.sample.service;version=${project.version},
@@ -235,7 +235,7 @@
                                         <include>**/**/*IntegrationTests.java</include>
                                     </includes>
                                     <summaryFile>target/failsafe-reports/failsafe-summary-it.xml</summaryFile>
-                                    <forkMode>always</forkMode>
+                                    <forkCount>1</forkCount>
                                 </configuration>
                             </execution>
                             <!-- Don't run the old OSGi test execution -->

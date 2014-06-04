@@ -1,5 +1,6 @@
 package org.motechproject.sample.service.it;
 
+import java.sql.BatchUpdateException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,6 +23,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
+import javax.jdo.JDODataStoreException;
+import javax.jdo.JDOException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -65,5 +68,17 @@ public class AuthorServiceIT extends BasePaxIT {
         authorService.delete(ernest);
         author = authorService.findAuthorByName(ernest.getName());
         assertNull(author);
+    }
+
+    @Test(expected = JDOException.class)
+    public void shouldNotCreateDuplicates() throws Exception {
+
+        logger.info("shouldNotCreateDuplicates");
+
+        authorDataService.deleteAll();
+
+        Author ernest = authorDataService.create(new Author("Ernest"));
+
+        Author ernestAlso = authorDataService.create(new Author("Ernest"));
     }
 }

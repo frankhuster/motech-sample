@@ -3,6 +3,7 @@ package org.motechproject.sample.domain;
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
 
+import javax.jdo.annotations.Unique;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
@@ -14,12 +15,17 @@ import java.util.Objects;
 public class Author {
 
     @Field(required = true)
+    @Unique
     private String name;
 
     @Field
     private String bio;
 
     public Author() {
+    }
+
+    public Author(String name) {
+        this(name, null);
     }
 
     public Author(String name, String bio) {

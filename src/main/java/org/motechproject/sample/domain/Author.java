@@ -5,6 +5,8 @@ import org.motechproject.mds.annotations.Field;
 
 import javax.jdo.annotations.Unique;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,16 +23,26 @@ public class Author {
     @Field
     private String bio;
 
+    @Field
+    private List<Book> books = new ArrayList<>();
+
     public Author() {
     }
 
     public Author(String name) {
-        this(name, null);
+        this(name, null, null);
     }
 
     public Author(String name, String bio) {
+        this(name, bio, null);
+    }
+
+    public Author(String name, String bio, List<Book> books) {
         this.name = name;
         this.bio = bio;
+        if (null != books) {
+            this.books = books;
+        }
     }
 
     public String getName() {
@@ -49,12 +61,12 @@ public class Author {
         this.bio = bio;
     }
 
-    @Override
-    public String toString() {
-        return "Author{" +
-                "name='" + name + '\'' +
-                ", bio='" + bio + '\'' +
-                '}';
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 
     @Override
@@ -65,6 +77,7 @@ public class Author {
         Author author = (Author) o;
 
         if (bio != null ? !bio.equals(author.bio) : author.bio != null) return false;
+        if (books != null ? !books.equals(author.books) : author.books != null) return false;
         if (!name.equals(author.name)) return false;
 
         return true;
@@ -74,6 +87,16 @@ public class Author {
     public int hashCode() {
         int result = name.hashCode();
         result = 31 * result + (bio != null ? bio.hashCode() : 0);
+        result = 31 * result + (books != null ? books.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Author{" +
+                "name='" + name + '\'' +
+                ", bio='" + bio + '\'' +
+                ", books=" + books +
+                '}';
     }
 }

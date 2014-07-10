@@ -1,34 +1,27 @@
 package org.motechproject.sample.service.it;
 
-import java.sql.BatchUpdateException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import org.motechproject.sample.domain.Author;
-import org.motechproject.sample.domain.Book;
-import org.motechproject.sample.repository.AuthorDataService;
-import org.motechproject.sample.repository.BookDataService;
-import org.motechproject.sample.service.AuthorService;
-
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.ops4j.pax.exam.junit.PaxExam;
-import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
+import org.motechproject.sample.domain.Author;
+import org.motechproject.sample.repository.AuthorDataService;
+import org.motechproject.sample.repository.BookDataService;
+import org.motechproject.sample.repository.SecretDataService;
+import org.motechproject.sample.repository.SpyDataService;
+import org.motechproject.sample.service.AuthorService;
+import org.motechproject.testing.osgi.BasePaxIT;
 import org.motechproject.testing.osgi.container.MotechNativeTestContainerFactory;
 import org.ops4j.pax.exam.ExamFactory;
-import org.motechproject.testing.osgi.BasePaxIT;
+import org.ops4j.pax.exam.junit.PaxExam;
+import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
 import org.ops4j.pax.exam.spi.reactors.PerSuite;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
-import javax.jdo.JDODataStoreException;
 import javax.jdo.JDOException;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Verify that HelloWorldAuthorService present, functional.
@@ -46,31 +39,65 @@ public class AuthorServiceIT extends BasePaxIT {
     private AuthorDataService authorDataService;
     @Inject
     private BookDataService bookDataService;
+    @Inject
+    private SpyDataService spyDataService;
+    @Inject
+    private SecretDataService secretDataService;
+
+    @Before
+    public void clearDatabase() {
+        logger.info("clearDatabase");
+
+        secretDataService.deleteAll();
+        spyDataService.deleteAll();
+        bookDataService.deleteAll();
+        authorDataService.deleteAll();
+    }
 
     @Test
-    public void testAuthorService() throws Exception {
+    public void verifyCreatingSimpleAuthor() throws Exception {
 
-        logger.info("testAuthorService");
+        logger.info("verifyCreatingSimpleAuthor");
 
-        authorDataService.deleteAll();
-
-        Book theOldManAndTheSea = bookDataService.create(new Book("The old man and the sea", "A man goes fishing"));
-        Book forWhomTheBellTolls = bookDataService.create(new Book("For whom the bell tolls", "The Spanish war"));
-        List<Book> books = new ArrayList<>(Arrays.asList(theOldManAndTheSea, forWhomTheBellTolls));
-        Author ernest = authorDataService.create(new Author("Ernest", "This is Ernest's biography.", books));
-
-        logger.info("Created author id {}", authorDataService.getDetachedField(ernest, "id"));
+        Author ernest = authorDataService.create(new Author("Ernest"));
+        logger.info("created {}", ernest);
 
         Author author = authorService.findAuthorByName(ernest.getName());
-        logger.info("Found author id {} : {}", authorDataService.getDetachedField(author, "id"), author.toString());
-        assertEquals(ernest, author);
+        logger.info("found {}", author);
 
-        List<Author> authors = authorService.getAuthors();
-        assertTrue(authors.contains(ernest));
+        assertEquals(author, ernest);
+    }
 
-        authorService.delete(ernest);
-        author = authorService.findAuthorByName(ernest.getName());
-        assertNull(author);
+    @Test
+    public void verifyCreatingComplexAuthor() throws Exception {
+
+        logger.info("verifyCreatingComplexAuthor");
+
+        Author ernest = authorDataService.create(new Author("Ernest"));
+        logger.info("created {}", ernest);
+
+        Author author = authorService.findAuthorByName(ernest.getName());
+        logger.info("found {}", author);
+
+        assertEquals(author, ernest);
+    }
+
+    @Test
+    public void testCascadeDeletes() throws Exception {
+
+        logger.info("testCascadeDeletes");
+
+//        Book b1 = bookDataService.create(new Book("The old man and the sea", "A man goes fishing"));
+//        Book b2 = bookDataService.create(new Book("For whom the bell tolls", "The Spanish war"));
+//        Author ernest = authorDataService.create(new Author("Ernest",
+//                Arrays.asList(b1, b2), "This is Ernest's biography."));
+//
+//        Author author = authorService.findAuthorByName(ernest.getName());
+//        assertEquals(ernest, author);
+//
+//        authorService.delete(author);
+//        List<Book> books = bookDataService.retrieveAll();
+//        assertEquals(0, books.size());
     }
 
     @Test(expected = JDOException.class)
@@ -78,10 +105,7 @@ public class AuthorServiceIT extends BasePaxIT {
 
         logger.info("shouldNotCreateDuplicates");
 
-        authorDataService.deleteAll();
-
         Author ernest = authorDataService.create(new Author("Ernest"));
-
         Author ernestAlso = authorDataService.create(new Author("Ernest"));
     }
 }

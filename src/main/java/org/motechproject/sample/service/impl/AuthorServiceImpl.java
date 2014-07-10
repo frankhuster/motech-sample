@@ -1,6 +1,7 @@
 package org.motechproject.sample.service.impl;
 
 import org.motechproject.sample.domain.Author;
+import org.motechproject.sample.domain.Book;
 import org.motechproject.sample.repository.AuthorDataService;
 import org.motechproject.sample.service.AuthorService;
 
@@ -20,9 +21,9 @@ public class AuthorServiceImpl implements AuthorService {
     private AuthorDataService authorDataService;
 
     @Override
-    public void create(String name, String bio) {
+    public void create(String name, List<Book> books) {
         authorDataService.create(
-                new Author(name, bio)
+                new Author(name)
         );
     }
 

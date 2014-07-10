@@ -9,12 +9,12 @@
 
     <import resource="classpath*:META-INF/motech/*.xml" />
 
-    <osgi:service ref="helloWorldService" interface="org.motechproject.sample.service.HelloWorldService" />
-
     <osgi:service ref="authorService" interface="org.motechproject.sample.service.AuthorService" />
 
     <osgi:reference id="authorDataService" interface="org.motechproject.sample.repository.AuthorDataService" />
-
     <osgi:reference id="bookDataService" interface="org.motechproject.sample.repository.BookDataService" />
+
+    <osgi:reference id="agentDataService" interface="org.motechproject.sample.repository.SpyDataService" />
+    <osgi:reference id="secretDataService" interface="org.motechproject.sample.repository.SecretDataService" />
 
 </beans>

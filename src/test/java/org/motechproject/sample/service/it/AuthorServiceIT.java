@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.motechproject.sample.domain.Author;
+import org.motechproject.sample.domain.Bio;
 import org.motechproject.sample.domain.Book;
 import org.motechproject.sample.domain.NomDePlume;
 import org.motechproject.sample.repository.*;
@@ -20,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Inject;
 import javax.jdo.JDOException;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -38,6 +40,8 @@ public class AuthorServiceIT extends BasePaxIT {
     @Inject
     private AuthorDataService authorDataService;
     @Inject
+    private BioDataService bioDataService;
+    @Inject
     private BookDataService bookDataService;
     @Inject
     private NomDePlumeDataService nomDePlumeDataService;
@@ -49,6 +53,7 @@ public class AuthorServiceIT extends BasePaxIT {
     @After
     public void cleanupDatabase() {
         try { authorDataService.deleteAll(); } catch (JDOException e) { }
+        try { bioDataService.deleteAll(); } catch (JDOException e) { }
         try { bookDataService.deleteAll(); } catch (JDOException e) { }
         try { nomDePlumeDataService.deleteAll(); } catch (JDOException e) { }
         try { spyDataService.deleteAll(); } catch (JDOException e) { }
@@ -75,9 +80,9 @@ public class AuthorServiceIT extends BasePaxIT {
         logger.info("verifyCreatingComplexAuthor");
 
         Author ernest = new Author("Ernest");
-        ernest.setBooks(Arrays.asList(new Book("Book1"),new Book("Book2")));
-        ernest.setNomsDePlume(Arrays.asList(nomDePlumeDataService.create(new NomDePlume("Nom2")),
-                nomDePlumeDataService.create(new NomDePlume("Nom3"))));
+        ernest.setBio(new Bio(ernest, "Born in Illinois..."));
+        ernest.setBooks(Arrays.asList(new Book("Book1"), new Book("Book2")));
+        ernest.setNomsDePlume(Arrays.asList(new NomDePlume("Nom2"), new NomDePlume("Nom3")));
         ernest = authorDataService.create(ernest);
         logger.info("created {}", ernest);
 
@@ -85,9 +90,6 @@ public class AuthorServiceIT extends BasePaxIT {
         logger.info("found {}", author);
 
         assertEquals(author, ernest);
-
-        bookDataService.deleteAll();
-        authorDataService.deleteAll();
     }
 
     @Test
@@ -95,17 +97,16 @@ public class AuthorServiceIT extends BasePaxIT {
 
         logger.info("testCascadeDeletes");
 
-//        Book b1 = bookDataService.create(new Book("The old man and the sea", "A man goes fishing"));
-//        Book b2 = bookDataService.create(new Book("For whom the bell tolls", "The Spanish war"));
-//        Author ernest = authorDataService.create(new Author("Ernest",
-//                Arrays.asList(b1, b2), "This is Ernest's biography."));
-//
-//        Author author = authorService.findAuthorByName(ernest.getName());
-//        assertEquals(ernest, author);
-//
-//        authorService.delete(author);
-//        List<Book> books = bookDataService.retrieveAll();
-//        assertEquals(0, books.size());
+        Book b1 = bookDataService.create(new Book("The old man and the sea"));
+        Book b2 = bookDataService.create(new Book("For whom the bell tolls"));
+        Author ernest = authorDataService.create(new Author("Ernest", null, Arrays.asList(b1, b2), null));
+
+        Author author = authorService.findAuthorByName(ernest.getName());
+        assertEquals(ernest, author);
+
+        authorService.delete(author);
+        List<Book> books = bookDataService.retrieveAll();
+        assertEquals(0, books.size());
     }
 
     @Test(expected = JDOException.class)

@@ -17,18 +17,23 @@ public class Author {
 
     @Field
     @Cascade(persist = true, update = true, delete = true)
+    private Bio bio;
+
+    @Field
+    @Cascade(persist = true, update = true, delete = true)
     private List<Book> books = new ArrayList<>();
 
     @Field
-    @Cascade(persist = false, update = false, delete = false)
+    @Cascade(persist = true, update = true, delete = true)
     private List<NomDePlume> nomsDePlume = new ArrayList<>();
 
     public Author(String name) {
         this.name = name;
     }
 
-    public Author(String name, List<Book> books, List<NomDePlume> nomsDePlume) {
+    public Author(String name, Bio bio, List<Book> books, List<NomDePlume> nomsDePlume) {
         this.name = name;
+        this.bio = bio;
         if (null != books) {
             this.books = books;
         }
@@ -43,6 +48,14 @@ public class Author {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Bio getBio() {
+        return bio;
+    }
+
+    public void setBio(Bio bio) {
+        this.bio = bio;
     }
 
     public List<Book> getBooks() {
@@ -76,6 +89,7 @@ public class Author {
 
         Author author = (Author) o;
 
+        if (bio != null ? !bio.equals(author.bio) : author.bio != null) return false;
         if (books != null ? !books.equals(author.books) : author.books != null) return false;
         if (!name.equals(author.name)) return false;
         if (nomsDePlume != null ? !nomsDePlume.equals(author.nomsDePlume) : author.nomsDePlume != null) return false;
@@ -86,6 +100,7 @@ public class Author {
     @Override
     public int hashCode() {
         int result = name.hashCode();
+        result = 31 * result + (bio != null ? bio.hashCode() : 0);
         result = 31 * result + (books != null ? books.hashCode() : 0);
         result = 31 * result + (nomsDePlume != null ? nomsDePlume.hashCode() : 0);
         return result;
@@ -95,6 +110,7 @@ public class Author {
     public String toString() {
         return "Author{" +
                 "name='" + name + '\'' +
+                ", bio=" + bio +
                 ", books=" + books +
                 ", nomsDePlume=" + nomsDePlume +
                 '}';

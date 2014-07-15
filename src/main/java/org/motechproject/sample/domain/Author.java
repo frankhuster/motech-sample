@@ -1,28 +1,41 @@
 package org.motechproject.sample.domain;
 
+import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
+
+import javax.jdo.annotations.Unique;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Author {
 
     @Field(required = true)
+    @Unique
     private String name;
 
-//    @Field
-//    @Cascade(persist = true, update = true, delete = true)
-//    private List<Book> books = new ArrayList<>();
+    @Field
+    @Cascade(persist = true, update = true, delete = true)
+    private List<Book> books = new ArrayList<>();
+
+    @Field
+    @Cascade(persist = false, update = false, delete = false)
+    private List<NomDePlume> nomsDePlume = new ArrayList<>();
 
     public Author(String name) {
         this.name = name;
     }
 
-//    public Author(String name, List<Book> books) {
-//        this.name = name;
-//        if (null != books) {
-//            this.books = books;
-//        }
-//    }
+    public Author(String name, List<Book> books, List<NomDePlume> nomsDePlume) {
+        this.name = name;
+        if (null != books) {
+            this.books = books;
+        }
+        if (null != nomsDePlume) {
+            this.nomsDePlume = nomsDePlume;
+        }
+    }
 
     public String getName() {
         return name;
@@ -32,17 +45,29 @@ public class Author {
         this.name = name;
     }
 
-//    public List<Book> getBooks() {
-//        return books;
-//    }
-//
-//    public void setBooks(List<Book> books) {
-//        if (null == books) {
-//            this.books = new ArrayList<>();
-//        } else {
-//            this.books = books;
-//        }
-//    }
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        if (null == books) {
+            this.books = new ArrayList<>();
+        } else {
+            this.books = books;
+        }
+    }
+
+    public List<NomDePlume> getNomsDePlume() {
+        return nomsDePlume;
+    }
+
+    public void setNomsDePlume(List<NomDePlume> nomsDePlume) {
+        if (null == nomsDePlume) {
+            this.nomsDePlume = new ArrayList<>();
+        } else {
+            this.nomsDePlume = nomsDePlume;
+        }
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -51,8 +76,9 @@ public class Author {
 
         Author author = (Author) o;
 
-//        if (books != null ? !books.equals(author.books) : author.books != null) return false;
+        if (books != null ? !books.equals(author.books) : author.books != null) return false;
         if (!name.equals(author.name)) return false;
+        if (nomsDePlume != null ? !nomsDePlume.equals(author.nomsDePlume) : author.nomsDePlume != null) return false;
 
         return true;
     }
@@ -60,7 +86,8 @@ public class Author {
     @Override
     public int hashCode() {
         int result = name.hashCode();
-//        result = 31 * result + (books != null ? books.hashCode() : 0);
+        result = 31 * result + (books != null ? books.hashCode() : 0);
+        result = 31 * result + (nomsDePlume != null ? nomsDePlume.hashCode() : 0);
         return result;
     }
 
@@ -68,7 +95,8 @@ public class Author {
     public String toString() {
         return "Author{" +
                 "name='" + name + '\'' +
-//                ", books=" + books +
+                ", books=" + books +
+                ", nomsDePlume=" + nomsDePlume +
                 '}';
     }
 }

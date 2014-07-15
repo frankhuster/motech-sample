@@ -1,13 +1,12 @@
 package org.motechproject.sample.service.it;
 
-import org.junit.Before;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.motechproject.sample.domain.Author;
-import org.motechproject.sample.repository.AuthorDataService;
-import org.motechproject.sample.repository.BookDataService;
-import org.motechproject.sample.repository.SecretDataService;
-import org.motechproject.sample.repository.SpyDataService;
+import org.motechproject.sample.domain.Book;
+import org.motechproject.sample.domain.NomDePlume;
+import org.motechproject.sample.repository.*;
 import org.motechproject.sample.service.AuthorService;
 import org.motechproject.testing.osgi.BasePaxIT;
 import org.motechproject.testing.osgi.container.MotechNativeTestContainerFactory;
@@ -20,6 +19,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.jdo.JDOException;
+import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
@@ -40,18 +40,19 @@ public class AuthorServiceIT extends BasePaxIT {
     @Inject
     private BookDataService bookDataService;
     @Inject
+    private NomDePlumeDataService nomDePlumeDataService;
+    @Inject
     private SpyDataService spyDataService;
     @Inject
     private SecretDataService secretDataService;
 
-    @Before
-    public void clearDatabase() {
-        logger.info("clearDatabase");
-
-        secretDataService.deleteAll();
-        spyDataService.deleteAll();
-        bookDataService.deleteAll();
-        authorDataService.deleteAll();
+    @After
+    public void cleanupDatabase() {
+        try { authorDataService.deleteAll(); } catch (JDOException e) { }
+        try { bookDataService.deleteAll(); } catch (JDOException e) { }
+        try { nomDePlumeDataService.deleteAll(); } catch (JDOException e) { }
+        try { spyDataService.deleteAll(); } catch (JDOException e) { }
+        try { secretDataService.deleteAll(); } catch (JDOException e) { }
     }
 
     @Test
@@ -73,13 +74,20 @@ public class AuthorServiceIT extends BasePaxIT {
 
         logger.info("verifyCreatingComplexAuthor");
 
-        Author ernest = authorDataService.create(new Author("Ernest"));
+        Author ernest = new Author("Ernest");
+        ernest.setBooks(Arrays.asList(new Book("Book1"),new Book("Book2")));
+        ernest.setNomsDePlume(Arrays.asList(nomDePlumeDataService.create(new NomDePlume("Nom2")),
+                nomDePlumeDataService.create(new NomDePlume("Nom3"))));
+        ernest = authorDataService.create(ernest);
         logger.info("created {}", ernest);
 
         Author author = authorService.findAuthorByName(ernest.getName());
         logger.info("found {}", author);
 
         assertEquals(author, ernest);
+
+        bookDataService.deleteAll();
+        authorDataService.deleteAll();
     }
 
     @Test

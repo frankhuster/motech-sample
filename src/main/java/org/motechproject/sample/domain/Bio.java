@@ -5,11 +5,21 @@ import org.motechproject.mds.annotations.Field;
 
 @Entity
 public class Bio {
-    @Field Author author;
-    @Field private String text;
+    @Field
+    private String text;
 
-    public Bio(Author author, String text) {
-        this.author = author;
+    @Field
+    private Author author;
+
+    public Bio(String text) {
+        this.text = text;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
         this.text = text;
     }
 
@@ -21,14 +31,6 @@ public class Bio {
         this.author = author;
     }
 
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -36,24 +38,24 @@ public class Bio {
 
         Bio bio = (Bio) o;
 
-        if (author != null ? !author.equals(bio.author) : bio.author != null) return false;
-        if (!text.equals(bio.text)) return false;
+        if (author != null ? !author.getName().equals(bio.author.getName()) : bio.author != null) return false;
+        if (text != null ? !text.equals(bio.text) : bio.text != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = author != null ? author.hashCode() : 0;
-        result = 31 * result + text.hashCode();
+        int result = text != null ? text.hashCode() : 0;
+        result = 31 * result + (author != null ? author.getName().hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
         return "Bio{" +
-                "author=" + author +
-                ", text='" + text + '\'' +
+                "text='" + text + '\'' +
+                ", author=" + author.getName() +
                 '}';
     }
 }

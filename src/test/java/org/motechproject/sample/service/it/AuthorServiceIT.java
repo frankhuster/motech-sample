@@ -1,6 +1,6 @@
 package org.motechproject.sample.service.it;
 
-import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.motechproject.sample.domain.Author;
@@ -50,8 +50,9 @@ public class AuthorServiceIT extends BasePaxIT {
     @Inject
     private SecretDataService secretDataService;
 
-    @After
+    @Before
     public void cleanupDatabase() {
+        logger.info("cleanupDatabase");
         try { authorDataService.deleteAll(); } catch (JDOException e) { }
         try { bioDataService.deleteAll(); } catch (JDOException e) { }
         try { bookDataService.deleteAll(); } catch (JDOException e) { }
@@ -80,7 +81,7 @@ public class AuthorServiceIT extends BasePaxIT {
         logger.info("verifyCreatingComplexAuthor");
 
         Author ernest = new Author("Ernest");
-        ernest.setBio(new Bio(ernest, "Born in Illinois..."));
+        ernest.setBio(new Bio("Born in Illinois..."));
         ernest.setBooks(Arrays.asList(new Book("Book1"), new Book("Book2")));
         ernest.setNomsDePlume(Arrays.asList(new NomDePlume("Nom2"), new NomDePlume("Nom3")));
         ernest = authorDataService.create(ernest);

@@ -26,23 +26,15 @@ public class NomDePlume {
         if (this == o) return true;
         if (!(o instanceof NomDePlume)) return false;
 
-        NomDePlume nomDePlume = (NomDePlume) o;
+        NomDePlume that = (NomDePlume) o;
 
-        if (!nom.equals(nomDePlume.nom)) return false;
+        if (!nom.equals(that.nom)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = nom.hashCode();
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Nomdeplume{" +
-                "nom='" + nom + '\'' +
-                '}';
+        return nom.hashCode();
     }
 }

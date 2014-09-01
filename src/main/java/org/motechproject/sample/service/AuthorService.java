@@ -1,15 +1,15 @@
 package org.motechproject.sample.service;
 
-import java.util.List;
-
 import org.motechproject.sample.domain.Author;
+
+import java.util.List;
 
 /**
  * Service interface for CRUD on simple repository authors.
  */
 public interface AuthorService {
 
-    void create(String name, String message);
+    void create(String name);
 
     void add(Author author);
 

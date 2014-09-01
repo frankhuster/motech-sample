@@ -20,10 +20,8 @@ public class AuthorServiceImpl implements AuthorService {
     private AuthorDataService authorDataService;
 
     @Override
-    public void create(String name, String bio) {
-        authorDataService.create(
-                new Author(name, bio)
-        );
+    public void create(String name) {
+        authorDataService.create(new Author(name, null, null, null, null));
     }
 
     @Override

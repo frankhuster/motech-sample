@@ -4,17 +4,19 @@ import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
 
 import javax.jdo.annotations.Unique;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.Map;
 
 /**
  * Models data for simple records in a portable manner.
  */
 @Entity
 public class Author {
+
+    public enum Map2Enum {
+        FOO,
+        BAR,
+        BAZ
+    }
 
     @Field(required = true)
     @Unique
@@ -24,25 +26,24 @@ public class Author {
     private String bio;
 
     @Field
-    private List<Book> books = new ArrayList<>();
+    private Map<String, String> mapOne;
 
-    public Author() {
-    }
+    @Field
+    private Map<String, Map2Enum> mapTwo;
+
+    @Field
+    private Map<String, String> mapThree;
 
     public Author(String name) {
-        this(name, null, null);
+        this(name, null, null, null, null);
     }
 
-    public Author(String name, String bio) {
-        this(name, bio, null);
-    }
-
-    public Author(String name, String bio, List<Book> books) {
+    public Author(String name, String bio, Map<String, String> mapOne, Map<String, Map2Enum> mapTwo, Map<String, String> mapThree) {
         this.name = name;
         this.bio = bio;
-        if (null != books) {
-            this.books = books;
-        }
+        this.mapOne = mapOne;
+        this.mapTwo = mapTwo;
+        this.mapThree = mapThree;
     }
 
     public String getName() {
@@ -61,34 +62,28 @@ public class Author {
         this.bio = bio;
     }
 
-    public List<Book> getBooks() {
-        return books;
+    public Map<String, String> getMapOne() {
+        return mapOne;
     }
 
-    public void setBooks(List<Book> books) {
-        this.books = books;
+    public void setMapOne(Map<String, String> mapOne) {
+        this.mapOne = mapOne;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Author)) return false;
-
-        Author author = (Author) o;
-
-        if (bio != null ? !bio.equals(author.bio) : author.bio != null) return false;
-        if (books != null ? !books.equals(author.books) : author.books != null) return false;
-        if (!name.equals(author.name)) return false;
-
-        return true;
+    public Map<String, Map2Enum> getMapTwo() {
+        return mapTwo;
     }
 
-    @Override
-    public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + (bio != null ? bio.hashCode() : 0);
-        result = 31 * result + (books != null ? books.hashCode() : 0);
-        return result;
+    public void setMapTwo(Map<String, Map2Enum> mapTwo) {
+        this.mapTwo = mapTwo;
+    }
+
+    public Map<String, String> getMapThree() {
+        return mapThree;
+    }
+
+    public void setMapThree(Map<String, String> mapThree) {
+        this.mapThree = mapThree;
     }
 
     @Override
@@ -96,7 +91,29 @@ public class Author {
         return "Author{" +
                 "name='" + name + '\'' +
                 ", bio='" + bio + '\'' +
-                ", books=" + books +
+                ", mapOne=" + mapOne +
+                ", mapTwo=" + mapTwo +
+                ", mapThree=" + mapThree +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Author author = (Author) o;
+
+        return this.toString().equals(author.toString());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + (bio != null ? bio.hashCode() : 0);
+        result = 31 * result + (mapOne != null ? mapOne.hashCode() : 0);
+        result = 31 * result + (mapTwo != null ? mapTwo.hashCode() : 0);
+        result = 31 * result + (mapThree != null ? mapThree.hashCode() : 0);
+        return result;
     }
 }

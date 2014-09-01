@@ -1,34 +1,26 @@
 package org.motechproject.sample.service.it;
 
-import java.sql.BatchUpdateException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import org.motechproject.sample.domain.Author;
-import org.motechproject.sample.domain.Book;
-import org.motechproject.sample.repository.AuthorDataService;
-import org.motechproject.sample.repository.BookDataService;
-import org.motechproject.sample.service.AuthorService;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.ops4j.pax.exam.junit.PaxExam;
-import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
+import org.motechproject.sample.domain.Author;
+import org.motechproject.sample.repository.AuthorDataService;
+import org.motechproject.sample.service.AuthorService;
+import org.motechproject.testing.osgi.BasePaxIT;
 import org.motechproject.testing.osgi.container.MotechNativeTestContainerFactory;
 import org.ops4j.pax.exam.ExamFactory;
-import org.motechproject.testing.osgi.BasePaxIT;
+import org.ops4j.pax.exam.junit.PaxExam;
+import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
 import org.ops4j.pax.exam.spi.reactors.PerSuite;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
-import javax.jdo.JDODataStoreException;
 import javax.jdo.JDOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Verify that HelloWorldAuthorService present, functional.
@@ -44,8 +36,6 @@ public class AuthorServiceIT extends BasePaxIT {
     private AuthorService authorService;
     @Inject
     private AuthorDataService authorDataService;
-    @Inject
-    private BookDataService bookDataService;
 
     @Test
     public void testAuthorService() throws Exception {
@@ -54,10 +44,20 @@ public class AuthorServiceIT extends BasePaxIT {
 
         authorDataService.deleteAll();
 
-        Book theOldManAndTheSea = bookDataService.create(new Book("The old man and the sea", "A man goes fishing"));
-        Book forWhomTheBellTolls = bookDataService.create(new Book("For whom the bell tolls", "The Spanish war"));
-        List<Book> books = new ArrayList<>(Arrays.asList(theOldManAndTheSea, forWhomTheBellTolls));
-        Author ernest = authorDataService.create(new Author("Ernest", "This is Ernest's biography.", books));
+        Map<String, String> map1 = new HashMap<>();
+        map1.put("m1k1", "m1v1");
+        map1.put("m1k2", "m1v2");
+
+        Map<String, Author.Map2Enum> map2 = new HashMap<>();
+        map2.put("m2k1", Author.Map2Enum.FOO);
+        map2.put("m2k2", Author.Map2Enum.BAR);
+
+        Map<String, String> map3 = new HashMap<>();
+        map1.put("m3k1", "m3v1");
+        map1.put("m3k2", "m3v2");
+
+
+        Author ernest = authorDataService.create(new Author("Ernest", "This is Ernest's biography.", map1, map2, map3));
 
         logger.info("Created author id {}", authorDataService.getDetachedField(ernest, "id"));
 

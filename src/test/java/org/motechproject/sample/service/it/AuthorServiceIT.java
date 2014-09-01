@@ -48,9 +48,9 @@ public class AuthorServiceIT extends BasePaxIT {
         map1.put("m1k1", "m1v1");
         map1.put("m1k2", "m1v2");
 
-        Map<String, Author.Map2Enum> map2 = new HashMap<>();
-        map2.put("m2k1", Author.Map2Enum.FOO);
-        map2.put("m2k2", Author.Map2Enum.BAR);
+        Map<String, String> map2 = new HashMap<>();
+        map2.put("m2k1", "m2v1");
+        map2.put("m2k2", "m2v2");
 
         Map<String, String> map3 = new HashMap<>();
         map1.put("m3k1", "m3v1");

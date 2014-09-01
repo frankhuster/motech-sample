@@ -12,12 +12,6 @@ import java.util.Map;
 @Entity
 public class Author {
 
-    public enum Map2Enum {
-        FOO,
-        BAR,
-        BAZ
-    }
-
     @Field(required = true)
     @Unique
     private String name;
@@ -29,7 +23,7 @@ public class Author {
     private Map<String, String> mapOne;
 
     @Field
-    private Map<String, Map2Enum> mapTwo;
+    private Map<String, String> mapTwo;
 
     @Field
     private Map<String, String> mapThree;
@@ -38,7 +32,7 @@ public class Author {
         this(name, null, null, null, null);
     }
 
-    public Author(String name, String bio, Map<String, String> mapOne, Map<String, Map2Enum> mapTwo, Map<String, String> mapThree) {
+    public Author(String name, String bio, Map<String, String> mapOne, Map<String, String> mapTwo, Map<String, String> mapThree) {
         this.name = name;
         this.bio = bio;
         this.mapOne = mapOne;
@@ -70,11 +64,11 @@ public class Author {
         this.mapOne = mapOne;
     }
 
-    public Map<String, Map2Enum> getMapTwo() {
+    public Map<String, String> getMapTwo() {
         return mapTwo;
     }
 
-    public void setMapTwo(Map<String, Map2Enum> mapTwo) {
+    public void setMapTwo(Map<String, String> mapTwo) {
         this.mapTwo = mapTwo;
     }
 
